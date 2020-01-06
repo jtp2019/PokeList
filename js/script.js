@@ -29,11 +29,11 @@ const pokemonRepository = (function () {
 // Function to add a list for each Pokemon object
   function addListItem(pokemon) {
     const pokemonList = $('.list-group');// create ul element for each Pokémon
-    const listitem = $('<li class="list-group-item"></li>');// create li element that contains a button for each Pokémon
-    $(pokemonList).append(listitem);// Adds the 'li' to 'ul' with pokemonList class in index file //append the list item to the unordered list as its child
+    const listItem = $('<li class="list-group-item"></li>');// create li element that contains a button for each Pokémon
+    $(pokemonList).append(listItem);// Adds the 'li' to 'ul' with pokemonList class in index file //append the list item to the unordered list as its child
     const btn = $('<button class="btn" data-toggle="modal" data-target="#PokeModal"></button>');//	Set the innerText of the button to be the Pokémon's name// Adds a CSS class to button using classList.add method
     $(btn).text(pokemon.name);//	Set the innerText of the button to be the Pokémon's name
-    $(listitem).append(btn);// Adds the button element to the 'li'// append the button to the list item as its child.
+    $(listItem).append(btn);// Adds the button element to the 'li'// append the button to the list item as its child.
     btn.on('click', function() {  /*JQuery Click Button Event Listener Used To Display showDetails Function Properties */
       showDetails(pokemon);// Calls showDetails function when button is clicked
     });
@@ -53,7 +53,7 @@ const pokemonRepository = (function () {
      .then(function(item) {
        $.each(item.results, function(index, item) {
          const pokemon = {
-           name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
+           name: item.name.charAt(0).toLowerCase() + item.name.slice(1),
            detailsUrl: item.url
          };
          add(pokemon);
@@ -75,7 +75,7 @@ const pokemonRepository = (function () {
         item.height = details.height;
         item.weight = details.weight;
         // item.types = Object.keys(details.types);
-     if (details.types.length == 2 ) {
+     if (details.types.length === 2 ) {
 			item.types = [details.types[0].type.name, details.types[1].type.name];
 		} else {
 			item.types = [details.types[0].type.name];
